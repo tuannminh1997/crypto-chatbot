@@ -1,0 +1,34 @@
+# Python
+venv/
+**/venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node.js
+node_modules/
+frontend/node_modules/
+
+# Frontend build output (Vite)
+frontend/dist/
+backend/frontend/build/
+
+# OS junk files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDE junk
+.vscode/
+.idea/
+
+# Backup files
+*.bak
+*.swp
+*~
+
+# Pytest cache
+.pytest_cache/

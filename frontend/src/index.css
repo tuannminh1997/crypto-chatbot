@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide scroll bar textarea */
+textarea::-webkit-scrollbar {
+  display: none;
+}
+/* Custom scroll bar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(45, 212, 191, 0.3); /* teal-400/30 */
+  border-radius: 9999px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(45, 212, 191, 0.5); /* hover sáng hơn tí */
+}
+
+html {
+  background-color: #0f172a;
+}

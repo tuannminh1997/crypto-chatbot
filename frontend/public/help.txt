@@ -1,0 +1,11 @@
+1. Giới thiệu:
+Crypto AI Insight là một trợ lý được xây dựng dựa trên các nền tảng AI chỉ để phân tích xu hướng thị trường tiền mã hoá. Để tối ưu chi phí những câu hỏi ngoài phạm vi phân tích coin sẽ không được xử lý.
+
+2. Hướng dẫn sử dụng:
+→ Để phân tích một đồng coin, chỉ cần nhập mã ký hiệu (ticker). Chatbot hỗ trợ nhiều cú pháp khác nhau như:
+Ví dụ: btc, bitcoin, bitcoinnn, bbbitcoin
+
+📌 Lưu ý quan trọng:
+Mỗi đồng coin có thể mang xu hướng riêng, nhưng toàn bộ thị trường thường vận động theo nhịp của Bitcoin. Hãy luôn quan sát diễn biến của Bitcoin trước khi đưa ra bất kỳ quyết định đầu tư nào.
+
+🚀 Chúc bạn giao dịch hiệu quả và tỉnh táo trong mọi lựa chọn!
