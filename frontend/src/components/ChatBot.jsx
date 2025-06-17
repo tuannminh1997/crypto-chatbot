@@ -78,12 +78,18 @@ const ChatbotInterface = () => {
     setInputValue("");
     setIsTyping(true); // Bắt đầu chặn nhập và hiển thị "đang xử lý"
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 600000);
+
     try {
       const response = await fetch("/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message }),
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
         throw new Error("Lỗi server");
@@ -235,8 +241,13 @@ const ChatbotInterface = () => {
           {/* Nút mở menu */}
           <div className="relative menu-container">
             <button
-              onClick={() => setShowMenu(!showMenu)}
-              className="w-10 h-10 bg-gradient-to-br from-slate-600 to-slate-800 rounded-full flex items-center justify-center text-white hover:shadow-lg"
+              onClick={() => !isTyping && setShowMenu(!showMenu)}
+              disabled={isTyping}
+              className={`w-10 h-10 rounded-full flex items-center justify-center text-white transition-all duration-300 ${
+                isTyping
+                  ? "bg-slate-500 cursor-not-allowed"
+                  : "bg-gradient-to-br from-slate-600 to-slate-800 hover:shadow-lg"
+              }`}
             >
               <Plus size={20} />
             </button>

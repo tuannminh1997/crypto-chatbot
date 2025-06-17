@@ -126,6 +126,7 @@ Sử dụng cấu trúc thụt lề TEXT THUẦN TÚY như sau (KHÔNG dùng mar
 
 LƯU Ý QUAN TRỌNG:
 - Luôn TÌM KIẾM WEB cho dữ liệu thanh lý trước khi phân tích
+- Ngoài việc tìm kiếm dữ liệu thanh lý từ web, hãy sử dụng chỉ số Fear & Greed Index đã được cung cấp sẵn trong dữ liệu để phân tích tâm lý thị trường.
 - Nếu không tìm thấy dữ liệu thanh lý, nêu rõ "Không tìm thấy dữ liệu thanh lý thời gian thực"
 - Đối chiếu vùng thanh lý với các mức kỹ thuật
 - Đánh giá rủi ro thanh lý liên hoàn dựa trên cụm thanh lý

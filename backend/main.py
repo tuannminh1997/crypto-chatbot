@@ -55,6 +55,22 @@ class ChatResponse(BaseModel):
     symbol: Optional[str] = None
     data_points: Optional[int] = None
 
+# ========================== Fear & Greed Index FUNCTIONS ===========================
+def get_fear_greed_index():
+    try:
+        url = "https://api.alternative.me/fng/"
+        response = requests.get(url, timeout=30)
+        response.raise_for_status()
+        data = response.json()
+        index_value = data["data"][0]["value"]
+        classification = data["data"][0]["value_classification"]
+        updated_time = datetime.fromtimestamp(int(data["data"][0]["timestamp"])).strftime("%Y-%m-%d %H:%M:%S")
+
+        return f"📊 Fear & Greed Index hiện tại: {index_value} ({classification}), cập nhật lúc {updated_time}."
+    except Exception as e:
+        print(f"❌ Lỗi khi lấy Fear & Greed Index: {e}")
+        return "❌ Không lấy được chỉ số Fear & Greed Index."
+
 # ========================== BINANCE DATA & INDICATOR FUNCTIONS ===========================
 
 # Hàm lấy dữ liệu nến từ Binance
@@ -62,7 +78,7 @@ def get_binance_klines(symbol: str, interval: str = "1d", limit: int = 200):
     try:
         url = "https://api.binance.com/api/v3/klines"
         params = {"symbol": symbol, "interval": interval, "limit": limit}
-        response = requests.get(url, params=params)
+        response = requests.get(url, params=params, timeout=120)
         if response.status_code != 200:
             print(f"❌ Binance API error: {response.status_code}")
             return None
@@ -172,7 +188,8 @@ async def chat(req: ChatRequest):
             max_tokens=100,
             temperature=0.3,
             system=NAME_SYSTEM_PROMPT,
-            messages=[{"role": "user", "content": req.message}]
+            messages=[{"role": "user", "content": req.message}],
+            timeout=300
         )
         coin_name = name_response.content[0].text.strip()
         print(f"🪙 Detected coin: {coin_name}")
@@ -187,6 +204,9 @@ async def chat(req: ChatRequest):
         comprehensive_data = format_comprehensive_analysis_data(df, coin_name)
         if comprehensive_data is None:
             return ChatResponse(response="❌ Không đủ dữ liệu để phân tích. Vui lòng thử lại sau.")
+
+        fear_greed_info = get_fear_greed_index()
+        combined_prompt = comprehensive_data + "\n\n" + fear_greed_info
         
         # Bước 4: Gọi Claude phân tích kỹ thuật toàn diện
         analysis_response = client.messages.create(
@@ -194,7 +214,7 @@ async def chat(req: ChatRequest):
             max_tokens=4000,
             temperature=0.7,
             system=ANALYSIS_SYSTEM_PROMPT,
-            messages=[{"role": "user", "content": comprehensive_data}]
+            messages=[{"role": "user", "content": combined_prompt}]
         )
         analysis_result = analysis_response.content[0].text
         print("✅ Analysis completed")
